@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <windows.h>
 
 char function[100];
 float err = 0;
@@ -38,6 +39,7 @@ int main()
         {
         case 1:
             bisection();
+            system("cls");
             break;
         
         case 2:
@@ -65,6 +67,7 @@ double f(double x){
 void bisection(){
     double a, b;
     double fa, fb;
+    double signal;
 
     printf("\n\n\t\t Enter with value of a: ");
     scanf("%lf", &a);
@@ -73,8 +76,15 @@ void bisection(){
 
     fa = f(a);
     fb = f(b);
+    signal = fa*fb;
 
-    
+    if(signal<0){
+
+    }
+    else{
+        printf("\n\n\t\t Interval does not respect the Intermediate Value Theorem");
+        Sleep(4000);
+    }
 }
 
 
