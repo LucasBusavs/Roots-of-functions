@@ -5,8 +5,8 @@
 #include <ctype.h>
 
 char function[100];
-float err;
-int inter;
+float err = 0;
+int inter = 0;
 
 int main()
 {
@@ -37,7 +37,7 @@ int main()
         switch (choose)
         {
         case 1:
-            
+            bisection();
             break;
         
         case 2:
@@ -56,16 +56,25 @@ int main()
     return 0;
 }
 
-double func(char fx[], double x){
-    double f;
-    f = exp(-x)-x;
-    return f;
+double f(double x){
+    double fun;
+    fun = exp(-x)-x;
+    return fun;
 }
 
 void bisection(){
+    double a, b;
+    double fa, fb;
 
+    printf("\n\n\t\t Enter with value of a: ");
+    scanf("%lf", &a);
+    printf("\n\n\t\t Enter with value of b: ");
+    scanf("%lf", &b);
 
+    fa = f(a);
+    fb = f(b);
 
+    
 }
 
 
@@ -101,11 +110,12 @@ void enterFunction(){
 
 void stopReason(){
     int stop;
+
     do
     {
-        printf("\n\n\t\t Choose reason to stop ");
         printf("\n\n\t\t 1 - Error");
-        printf("\n\n\t\t 2 - Interaction\n");
+        printf("\n\n\t\t 2 - Interaction");
+        printf("\n\n\t\t Choose reason to stop: ");
         scanf("%d", &stop);
     } while (stop != 1 && stop != 2);
 
@@ -122,9 +132,11 @@ void stopReason(){
 void interaction(){
     printf("\n\n\t\t Enter the amount of interaction: ");
     scanf("%d", &inter);
+    system("cls");
 }
 
 void error(){
     printf("\n\n\t\t Enter error to stop: ");
     scanf("%f", &err);
+    system("cls");
 }
