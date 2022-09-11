@@ -5,10 +5,11 @@
 #include <ctype.h>
 
 
-int main(int argc, char const *argv[])
+int main()
 {
     int choose;
     char function[100];
+    int i;
 
     printf("\n\n\t\t ********************************************************************");
     printf("\n\t\t                      WELCOME TO THE ROOTS DISCOVERER");
@@ -19,11 +20,11 @@ int main(int argc, char const *argv[])
 
     printf("\n\n\t\t %s", &function);
 
+    for ( i = 0; i < strlen(function); i++){
+        function[i] = tolower(function[i]);
+    }
 
-    printf("\n\n\t\t %d", strlen(function));
-   
-
-
+    printf("\n\n\t\t %s", &function);
 
     return 0;
 }
