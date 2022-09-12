@@ -80,8 +80,8 @@ double xkBisection(double a, double b){
 void bisection(){
     double a, b;
     double fa, fb;
-    double x0, f0;
-    double err1 = 0;
+    double x0[inter], f0[inter];
+    double err1 = 1;
     double signal;
     int i = 0;
 
@@ -95,21 +95,33 @@ void bisection(){
     signal = fa*fb;
 
     if(signal < 0){
-        while (err1 < err && inter > i){
-            x0 = xkBisection(a, b); //Had to transform x0 into x0[]
-            f0 = f(x0);
-            if(f0*fa < 0){
-                b = x0;
-                fb = f0;
+        printf("\n\n\t\t INT \t\t A \t\t\t F(A) \t\t\t B \t\t\t F(B) \t\t\t XK \t\t\t F(XK) \t\t\t ERR", i, a, fa, b, fb, x0[i], f0[i], err1);
+        while (err1 > err && inter > i){
+            x0[i] = xkBisection(a, b); 
+            f0[i] = f(x0[i]);
+            if(i > 0){
+                err1 = relativeError(x0[i], x0[i-1]);
             }
-            else if(f0*fb < 0){
-                a = x0;
-                fa = f0;
+            else{
+                err1 = 0;
             }
-            //printf("\n\n\t\t %d \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf", i, a, fa, b, fb, x0, f0, err1);
-            //Sleep(2500);
+            printf("\n\n\t\t %d \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf", i, a, fa, b, fb, x0[i], f0[i], err1);
+            if(f0[i]*fa < 0){
+                b = x0[i];
+                fb = f0[i];
+            }
+            else if(f0[i]*fb < 0){
+                a = x0[i];
+                fa = f0[i];
+            }
+            if(i == 0){
+                err1 = 1;
+            }
             i++;    
         }
+        printf("\n\n\t\t%d  %lf", i, x0[i-1]);
+        getchar();
+        getchar();
     }
     else{
         printf("\n\n\t\t Interval does not respect the Intermediate Value Theorem");
