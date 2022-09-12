@@ -96,7 +96,7 @@ void bisection(){
 
     if(signal < 0){
         while (err1 < err && inter > i){
-            x0 = xkBisection(a, b);
+            x0 = xkBisection(a, b); //Had to transform x0 into x0[]
             f0 = f(x0);
             if(f0*fa < 0){
                 b = x0;
@@ -106,6 +106,8 @@ void bisection(){
                 a = x0;
                 fa = f0;
             }
+            //printf("\n\n\t\t %d \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf", i, a, fa, b, fb, x0, f0, err1);
+            //Sleep(2500);
             i++;    
         }
     }
