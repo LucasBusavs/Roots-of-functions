@@ -137,6 +137,15 @@ void bisection(){
     }
 }
 
+double xkFalsePosition(double a, double b){
+    double xk;
+    double num, den;
+    num = a*f(b) - b*f(a);
+    den = f(b) - f(a);
+    xk = num/den;   
+    return xk;
+}
+
 int main(){
     int choose;
     do{
