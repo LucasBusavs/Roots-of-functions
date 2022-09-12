@@ -119,7 +119,16 @@ void bisection(){
             }
             i++;    
         }
-        printf("\n\n\t\t%d  %lf", i, x0[i-1]);
+        if (err1 > err){
+            printf("\n\n\n");
+            printf("\n\n\t\t Number of interactions wasn't enough");
+        }
+        printf("\n\n\n");
+        printf("\n\t\t Result: %lf", x0[i-1]);
+        printf("\n\t\t Interactions: %d", i);
+        printf("\n\t\t Error: %lf", err1);
+        printf("\n\n\n");
+        printf("\t\t Press any key to continue ");
         getchar();
         getchar();
     }
