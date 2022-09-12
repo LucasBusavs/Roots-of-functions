@@ -80,7 +80,7 @@ double xkBisection(double a, double b){
 void bisection(){
     double a, b;
     double fa, fb;
-    double x0;
+    double x0, f0;
     double err1 = 0;
     double signal;
     int i = 0;
@@ -95,9 +95,17 @@ void bisection(){
     signal = fa*fb;
 
     if(signal < 0){
-        x0 = xkBisection(a, b);
-        while (err1 > err || inter < i){
-            
+        while (err1 < err && inter > i){
+            x0 = xkBisection(a, b);
+            f0 = f(x0);
+            if(f0*fa < 0){
+                b = x0;
+                fb = f0;
+            }
+            else if(f0*fb < 0){
+                a = x0;
+                fa = f0;
+            }
             i++;    
         }
     }
