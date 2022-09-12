@@ -37,7 +37,6 @@ void enterFunction(){
     }while (correct != 'y');
 }
 
-
 double f(double x){
     double fun;
     fun = exp(-x)-x;
