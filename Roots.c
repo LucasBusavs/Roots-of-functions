@@ -56,12 +56,18 @@ void interaction(){
     system("cls");
 }
 
+double absol(double x){
+    if(x < 0){
+        return -x;
+    }
+    else{
+        return x;
+    }
+}
+
 double relativeError(double xk, double xkl1){
     double calc_error;
-    calc_error = (xk - xkl1)/xk;
-    if(calc_error < 0){
-        calc_error = -calc_error;
-    }
+    calc_error = absol((xk - xkl1)/xk);
     return calc_error;
 }
 
@@ -90,7 +96,7 @@ void bisection(){
 
     if(signal < 0){
         x0 = xkBisection(a, b);
-        while (err1 > err || inter > i){
+        while (err1 > err || inter < i){
             
             i++;    
         }
