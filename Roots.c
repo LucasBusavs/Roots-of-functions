@@ -78,14 +78,37 @@ void bisection(){
     fb = f(b);
     signal = fa*fb;
 
-    if(signal<0){
+    if(signal < 0){
+        if(err != 0 ){
 
+        }
+        else if (inter != 0){
+           
+        }
     }
     else{
         printf("\n\n\t\t Interval does not respect the Intermediate Value Theorem");
-        Sleep(4000);
+        Sleep(3500);
     }
 }
+
+
+double relativeError(double xk, double xkl1){
+    double calc_error;
+    calc_error = (xk - xkl1)/xk;
+    if(calc_error < 0){
+        calc_error = -calc_error;
+    }
+    return calc_error;
+}
+
+
+double xkBisection(double a, double b){
+    double xk;
+    xk = (a+b)/2;
+    return xk;
+}
+
 
 
 
