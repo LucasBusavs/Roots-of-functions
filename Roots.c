@@ -100,7 +100,7 @@ void bisection(){
     signal = fa*fb;
 
     if(signal < 0){
-        printf("\n\n\t\t INT \t\t A \t\t\t F(A) \t\t\t B \t\t\t F(B) \t\t\t XK \t\t\t F(XK) \t\t\t ERR", i, a, fa, b, fb, x0[i], f0[i], err1);
+        printf("\n\n\t\t INT \t\t A \t\t\t F(A) \t\t\t B \t\t\t F(B) \t\t\t XK \t\t\t F(XK) \t\t\t ERR");
         while (err1 > err && inter > i){
             x0[i] = xkBisection(a, b); 
             f0[i] = f(x0[i]);
@@ -170,7 +170,7 @@ void falsePosition(){
     signal = fa*fb;
 
     if(signal < 0){
-        printf("\n\n\t\t INT \t\t A \t\t\t F(A) \t\t\t B \t\t\t F(B) \t\t\t XK \t\t\t F(XK) \t\t\t ERR", i, a, fa, b, fb, x0[i], f0[i], err1);
+        printf("\n\n\t\t INT \t\t A \t\t\t F(A) \t\t\t B \t\t\t F(B) \t\t\t XK \t\t\t F(XK) \t\t\t ERR");
         while (err1 > err && inter > i){
             x0[i] = xkFalsePosition(a, b); 
             f0[i] = f(x0[i]);
@@ -219,6 +219,52 @@ double xkNewton(double x){
     return xk;
 }
 
+void newton(){
+    double x0;
+    double xk[inter], fk[inter], fdk[inter];
+    double err1 = 1;
+    double fx0, fdx0;
+    int i = 0;
+
+    printf("\n\n\t\t Enter with value of X0: ");
+    scanf("%lf", &x0);
+
+    fx0 = f(x0);
+    fdx0 = fdx(x0);
+
+    printf("\n\n\t\t INT \t\t X \t\t\t F(X) \t\t\t F'(X) \t\t\t XK \t\t\t F(XK) \t\t\t F'(XK) \t\t\t ERR");
+    while (err1 > err && inter > i){
+        if(i == 0){
+            xk[i] = xkNewton(x0);
+            fk[i] = f(xk[i]);
+            fdk[i] = fdx(xk[i]);
+            err1 = 0;
+            printf("\n\n\t\t %d \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf", i, x0, fx0, fdx0, xk[i], fk[i], fdk[i], err1);
+            err1 = 1;
+        }
+        else{
+           xk[i] = xkNewton(xk[i-1]);
+           fk[i] = f(xk[i]);
+           fdk[i] = fdx(xk[i]);
+           err1 = relativeError(xk[i], xk[i-1]);
+           printf("\n\n\t\t %d \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf", i, xk[i-1], fk[i-1], fdk[i-1], xk[i], fk[i], fdk[i], err1);
+        }
+        i++;
+    }
+    if (err1 > err){
+        printf("\n\n\n");
+        printf("\n\n\t\t Number of interactions wasn't enough or will diverge");
+    }
+    printf("\n\n\n");
+    printf("\n\t\t Result: %lf", xk[i-1]);
+    printf("\n\t\t Interactions: %d", i);
+    printf("\n\t\t Error: %lf", err1);
+    printf("\n\n\n");
+    printf("\t\t Press any key to continue ");
+    getchar();
+    getchar();
+}
+
 
 int main(){
     int choose;
@@ -259,7 +305,8 @@ int main(){
             break;
 
         case 3:
-
+            newton();
+            system("cls");
             break;
 
         case 4:
