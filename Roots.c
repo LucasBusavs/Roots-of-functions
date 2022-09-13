@@ -43,6 +43,12 @@ double f(double x){
     return fun;
 }
 
+double fdx(double x){
+    double fundx;
+    fundx = -exp(-x)-1;
+    return fundx;
+}
+
 void initialError(){
     printf("\n\n\t\t Enter error to stop: ");
     scanf("%f", &err);
@@ -206,6 +212,13 @@ void falsePosition(){
         Sleep(3500);
     }
 }
+
+double xkNewton(double x){
+    double xk;
+    xk = x - (f(x)/fdx(x));
+    return xk;
+}
+
 
 int main(){
     int choose;
