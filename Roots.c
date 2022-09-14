@@ -274,6 +274,49 @@ double xkSecant(double xkl1, double xk){
     return xkm1;
 }
 
+void secant(){
+    double xk[inter], fk[inter];
+    double err1 = 1;
+    int i = 0;
+
+    printf("\n\n\t\t Enter with value of XO: ");
+    scanf("%lf", &xk[0]);
+    printf("\n\n\t\t Enter with value of X1 : ");
+    scanf("%lf", &xk[1]);
+
+    fk[0] = f(xk[0]);
+    fk[1] = f(xk[1]);
+
+    printf("\n\n\t\t INT \t\t A \t\t\t F(A) \t\t\t B \t\t\t F(B) \t\t\t XK \t\t\t F(XK) \t\t\t ERR");
+    while (err1 > err && inter > i){
+        xk[i+2] = xkSecant(xk[i], xk[i+1]);
+        fk[i+2] = f(xk[i+2]);
+        if(i > 0){
+            err1 = relativeError(xk[i+2], xk[i+1]);
+        }
+        else{
+            err1 = 0;
+        }
+        printf("\n\n\t\t %d \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf", i, xk[i], fk[i], xk[i+1], fk[i+1], xk[i+2], fk[i+2], err1);
+        if(i == 0){
+            err1 = 1;
+        }
+        i++;    
+    }
+    if (err1 > err){
+        printf("\n\n\n");
+        printf("\n\n\t\t Number of interactions wasn't enough");
+    }
+    printf("\n\n\n");
+    printf("\n\t\t Result: %lf", xk[i+1]);
+    printf("\n\t\t Interactions: %d", i);
+    printf("\n\t\t Error: %lf", err1);
+    printf("\n\n\n");
+    printf("\t\t Press any key to continue ");
+    getchar();
+    getchar();
+}
+
 int main(){
     int choose;
     do{
@@ -318,21 +361,10 @@ int main(){
             break;
 
         case 4:
-
+            secant();
+            system("cls");
             break;
         }
     }while (choose != 5);
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
