@@ -5,10 +5,12 @@
 #include <ctype.h>
 #include <windows.h>
 
-char function[100];
+//char function[100]; Probably need to use the GSL
 float err = 0;
 int inter = 0;
 
+/*  
+Probably need to use the GSL
 void enterFunction(){
     int i;
     char correct;
@@ -36,31 +38,46 @@ void enterFunction(){
         }
     }while (correct != 'y');
 }
+*/
 
+// Function to calculate the f(x)
 double f(double x){
     double fun;
-    fun = exp(-x)-x;
+    fun = exp(-x)-x;    // (e^-x)-x
     return fun;
 }
 
+// Function to calculate the derivate of f(x)
 double fdx(double x){
     double fundx;
-    fundx = -exp(-x)-1;
+    fundx = -exp(-x)-1;     // (-e^-x)-1
     return fundx;
 }
 
+// Function to enter with the error to stop the program
 void initialError(){
     printf("\n\n\t\t Enter error to stop: ");
     scanf("%f", &err);
+    if(err >= 1){
+       printf("\n\n\t\t Error to stop entered too big, enter again: ");
+       scanf("%f", &err);
+    }
     system("cls");
 }
 
+// Function to enter with the amount of interections that the program has to execute
 void interaction(){
     printf("\n\n\t\t Enter the amount of interaction: ");
     scanf("%d", &inter);
+    while (inter < 1)
+    {
+        printf("\n\n\t\t Amount of interaction less then 1, enter again: ");
+        scanf("%d", &inter);
+    }
     system("cls");
 }
 
+// Function to calculate the absolute value of any real value
 double absol(double x){
     if(x < 0){
         return -x;
@@ -70,18 +87,21 @@ double absol(double x){
     }
 }
 
+// Function to calculate the relative error [(xn - xn-1)/xn]
 double relativeError(double xk, double xkl1){
     double calc_error;
-    calc_error = absol((xk - xkl1)/xk);
+    calc_error = absol((xk - xkl1)/xk);     // Error must always be positive
     return calc_error;
 }
 
+// Function to calculate xk for the Bisection Method
 double xkBisection(double a, double b){
     double xk;
-    xk = (a+b)/2;
+    xk = (a+b)/2;   // Average Value
     return xk;
 }
 
+//  Void Function to realize the Bisection Method
 void bisection(){
     double a, b;
     double fa, fb;
@@ -100,17 +120,17 @@ void bisection(){
     signal = fa*fb;
 
     if(signal < 0){
-        printf("\n\n\t\t INT \t\t A \t\t\t F(A) \t\t\t B \t\t\t F(B) \t\t\t XK \t\t\t F(XK) \t\t\t ERR");
+        printf("\n\n\t\t INT \t\t A \t\t\t F(A) \t\t\t B \t\t\t F(B) \t\t\t XK \t\t\t F(XK) \t\t\t ERR");   
         while (err1 > err && inter > i){
-            x0[i] = xkBisection(a, b); 
-            f0[i] = f(x0[i]);
+            x0[i] = xkBisection(a, b);      // Calculate the xk and store it in a vector
+            f0[i] = f(x0[i]);               // Calculate f(xk)
             if(i > 0){
-                err1 = relativeError(x0[i], x0[i-1]);
+                err1 = relativeError(x0[i], x0[i-1]);    // Calculate error   
             }
             else{
-                err1 = 0;
+                err1 = 0;       // The first error
             }
-            printf("\n\n\t\t %d \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf", i, a, fa, b, fb, x0[i], f0[i], err1);
+            printf("\n\n\t\t %d \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf", i, a, fa, b, fb, x0[i], f0[i], err1);      // Printing results row by row
             if(f0[i]*fa < 0){
                 b = x0[i];
                 fb = f0[i];
@@ -134,11 +154,11 @@ void bisection(){
         printf("\n\t\t Error: %lf", err1);
         printf("\n\n\n");
         printf("\t\t Press any key to continue ");
-        getchar();
+        getchar();      //Capture \n 
         getchar();
     }
     else{
-        printf("\n\n\t\t Interval does not respect the Intermediate Value Theorem");
+        printf("\n\n\t\t Interval does not respect the Intermediate Value Theorem");    // The base of bissection method
         Sleep(3500);
     }
 }
