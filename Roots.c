@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <math.h>
-#include <string.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <windows.h>
-
+#include <stdio.h>      // Standard input-output header
+#include <math.h>       // Math equations
+//#include <string.h>      To manipulate Strings, only necessary if use "void enterFunction()"
+#include <stdlib.h>     // Standard library
+//#include <ctype.h>       Most of the functions in this library serve to sort ASCII characters,  only necessary if use "void enterFunction()"
+#include <windows.h>    // Contains declarations for all Windows API functions
+ 
 //char function[100]; Probably need to use the GSL
-float err = 0;
-int inter = 0;
+float err = 0;      // Global variable 
+int inter = 0;      // Global variable
 
 /*  
 Probably need to use the GSL
@@ -131,6 +131,7 @@ void bisection(){
                 err1 = 0;       // The first error
             }
             printf("\n\n\t\t %d \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf \t\t %lf", i, a, fa, b, fb, x0[i], f0[i], err1);      // Printing results row by row
+            // Keeping the theorem always valid
             if(f0[i]*fa < 0){
                 b = x0[i];
                 fb = f0[i];
@@ -163,6 +164,7 @@ void bisection(){
     }
 }
 
+// Function to calculate xk for the False Position Method
 double xkFalsePosition(double a, double b){
     double xk;
     double num, den;
@@ -172,6 +174,7 @@ double xkFalsePosition(double a, double b){
     return xk;
 }
 
+//  Void Function to realize the False Position Method using the same logic of Bisection Method, just changing how to calculate x0
 void falsePosition(){
     double a, b;
     double fa, fb;
@@ -233,12 +236,14 @@ void falsePosition(){
     }
 }
 
+// Function to calculate xk for the Newton Method
 double xkNewton(double x){
     double xk;
     xk = x - (f(x)/fdx(x));
     return xk;
 }
 
+// Void Function to realize the Newton Method
 void newton(){
     double x0;
     double xk[inter], fk[inter], fdk[inter];
@@ -247,9 +252,9 @@ void newton(){
     int i = 0;
 
     printf("\n\n\t\t Enter with value of X0: ");
-    scanf("%lf", &x0);
+    scanf("%lf", &x0);      // Can be changed by a the first position on xk vector
 
-    fx0 = f(x0);
+    fx0 = f(x0);    
     fdx0 = fdx(x0);
 
     printf("\n\n\t\t INT \t\t X \t\t\t F(X) \t\t\t F'(X) \t\t\t XK \t\t\t F(XK) \t\t\t F'(XK) \t\t\t ERR");
@@ -273,7 +278,7 @@ void newton(){
     }
     if (err1 > err){
         printf("\n\n\n");
-        printf("\n\n\t\t Number of interactions wasn't enough or will diverge");
+        printf("\n\n\t\t Number of interactions wasn't enough or will diverge");    // This Method doesn't ensure the convergence
     }
     printf("\n\n\n");
     printf("\n\t\t Result: %lf", xk[i-1]);
@@ -285,6 +290,7 @@ void newton(){
     getchar();
 }
 
+// Function to calculate xk for the Secant Method
 double xkSecant(double xkl1, double xk){
     double xkm1;
     double num, den;
@@ -294,6 +300,7 @@ double xkSecant(double xkl1, double xk){
     return xkm1;
 }
 
+//  Void Function to realize the Secant Method using the same logic of False Position Method, just changing the entries
 void secant(){
     double xk[inter], fk[inter];
     double err1 = 1;
@@ -325,7 +332,7 @@ void secant(){
     }
     if (err1 > err){
         printf("\n\n\n");
-        printf("\n\n\t\t Number of interactions wasn't enough");
+        printf("\n\n\t\t Number of interactions wasn't enough or will diverge");    // This Method doesn't ensure the convergence
     }
     printf("\n\n\n");
     printf("\n\t\t Result: %lf", xk[i+1]);
@@ -337,6 +344,7 @@ void secant(){
     getchar();
 }
 
+// Initializing the program
 int main(){
     int choose;
     do{
@@ -354,12 +362,12 @@ int main(){
 			printf("\n\n\t\t Choose a right option: ");
 			scanf("%d", &choose);
 		}
-
         system("cls");
 
         if (choose != 5){
            interaction();
            initialError();
+           system("cls");
            //enterFunction();
         }
 
@@ -386,5 +394,7 @@ int main(){
             break;
         }
     }while (choose != 5);
+    printf("\n\n\t\t\t\t\t\t\t That's it \2"); //🙂
+    Sleep(500);
     return 0;
 }
