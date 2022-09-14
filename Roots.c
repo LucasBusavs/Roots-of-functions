@@ -265,6 +265,14 @@ void newton(){
     getchar();
 }
 
+double xkSecant(double xkl1, double xk){
+    double xkm1;
+    double num, den;
+    num = xkl1*f(xk) - xk*f(xkl1);
+    den = f(xk) - f(xkl1);
+    xkm1 = num/den; 
+    return xkm1;
+}
 
 int main(){
     int choose;
