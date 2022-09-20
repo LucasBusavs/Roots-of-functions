@@ -155,7 +155,7 @@ void bisection(){
         printf("\n\t\t Error: %lf", err1);
         printf("\n\n\n");
         printf("\t\t Press any key to continue ");
-        getchar();      //Capture \n 
+        fflush(stdin);      //Capture \n 
         getchar();
     }
     else{
@@ -227,7 +227,7 @@ void falsePosition(){
         printf("\n\t\t Error: %lf", err1);
         printf("\n\n\n");
         printf("\t\t Press any key to continue ");
-        getchar();
+        fflush(stdin); 
         getchar();
     }
     else{
@@ -286,7 +286,7 @@ void newton(){
     printf("\n\t\t Error: %lf", err1);
     printf("\n\n\n");
     printf("\t\t Press any key to continue ");
-    getchar();
+    fflush(stdin); 
     getchar();
 }
 
@@ -340,7 +340,7 @@ void secant(){
     printf("\n\t\t Error: %lf", err1);
     printf("\n\n\n");
     printf("\t\t Press any key to continue ");
-    getchar();
+    fflush(stdin); 
     getchar();
 }
 
